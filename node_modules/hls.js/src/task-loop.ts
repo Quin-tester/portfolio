@@ -1,5 +1,3 @@
-import { type ILogger, Logger } from './utils/logger';
-
 /**
  * @ignore
  * Sub-class specialization of EventHandler base class.
@@ -29,14 +27,13 @@ import { type ILogger, Logger } from './utils/logger';
  * we are limiting the task execution per call stack to exactly one, but scheduling/post-poning further
  * task processing on the next main loop iteration (also known as "next tick" in the Node/JS runtime lingo).
  */
-export default class TaskLoop extends Logger {
+export default class TaskLoop {
   private readonly _boundTick: () => void;
   private _tickTimer: number | null = null;
   private _tickInterval: number | null = null;
   private _tickCallCount = 0;
 
-  constructor(label: string, logger: ILogger) {
-    super(label, logger);
+  constructor() {
     this._boundTick = this.tick.bind(this);
   }
 
