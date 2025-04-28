@@ -11,6 +11,10 @@
   width: max-content;
 }
 
+.disable-sticky {
+  display: none!important;
+}
+
 .pItem {
   height: 100vh;
   width: 100vw;

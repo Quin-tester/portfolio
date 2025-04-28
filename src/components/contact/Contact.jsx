@@ -1,6 +1,6 @@
 import "./contact.css";
 import emailjs from "@emailjs/browser";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "motion/react";
 import ContactSvg from "./ContactSvg";
 
@@ -26,6 +26,32 @@ const Contact = () => {
   const ref = useRef();
   const form = useRef();
 
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        const pProgress = document.getElementById("pProgress");
+
+        if (pProgress) {
+          if (entry.isIntersecting) {
+            pProgress.classList.add("disable-sticky");
+          } else {
+            pProgress.classList.remove("disable-sticky");
+          }
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
   const sendEmail = (e) => {
     e.preventDefault();
 
